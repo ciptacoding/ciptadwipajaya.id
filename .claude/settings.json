@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo \"--- check for rembg / imagemagick ---\"; which rembg magick convert 2>/dev/null; echo \"--- recent images in common dirs ---\"; ls -lt ~/Downloads 2>/dev/null | head -8; echo \"--- tmp clipboard images ---\"; ls -lt /var/folders/*/*/T/ 2>/dev/null | grep -i -E '\\\\.\\(png|jpe?g\\)' | head -5; ls -lt /tmp 2>/dev/null | grep -i -E '\\\\.\\(png|jpe?g\\)' | head -5)",
+      "Read(//Users/ciptadwipajaya/Downloads/**)",
+      "Read(//private/var/folders/**)",
+      "Read(//private/tmp/**)"
+    ]
+  }
+}
