@@ -215,8 +215,7 @@ export default function Hero() {
 
       <div className="hero-status" aria-hidden="true">SYS · Online · 00°.46′N / 116°.91′E</div>
       <div className="scroll-cue" aria-hidden="true">
-        Scroll
-        <div className="line" />
+        <span className="arrow-down" />
       </div>
     </section>
   )
