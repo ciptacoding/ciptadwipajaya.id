@@ -45,7 +45,7 @@ export default function About() {
             </div>
             <div className="spec">
               <dt className="k">stack</dt>
-              <dd className="v">Laravel · React · Go</dd>
+              <dd className="v">React · Flutter · Golang</dd>
             </div>
             <div className="spec">
               <dt className="k">domain</dt>

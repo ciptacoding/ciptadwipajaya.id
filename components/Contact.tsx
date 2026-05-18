@@ -14,8 +14,8 @@ export default function Contact() {
         data-delay="2"
         style={{ marginLeft: 'auto', marginRight: 'auto', textAlign: 'center' }}
       >
-        Tertarik kolaborasi, riset, atau hanya bertukar pikiran tentang membangun di sektor
-        publik? Pintu saya terbuka.
+        Interested in collaborating, research, or just trading ideas about building for the
+        public sector? My door is open.
       </p>
 
       <a
@@ -26,7 +26,7 @@ export default function Contact() {
         rel="noopener noreferrer"
         aria-label="Contact Cipta Dwipajaya on WhatsApp"
       >
-        → open.channel()
+        → chat.whatsapp()
       </a>
 
       <nav className="socials reveal" data-delay="4" aria-label="Social links">

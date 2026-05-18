@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 const TIMELINE = [
   {
-    tab: { yr: '2026—', lbl: 'Otorita IKN' },
+    tab: { yr: '2026—now', lbl: 'Otorita IKN' },
     content: {
       when: '2026 — Present',
       title: 'Software Engineer',
@@ -15,7 +15,7 @@ const TIMELINE = [
         'AI-driven automation that removes repetitive operational work',
         'Standardised backend architecture, design system & developer tooling',
       ],
-      tags: ['Laravel', 'Next.js', 'PostgreSQL', 'Docker', 'Go'],
+      tags: ['Next.js', 'PostgreSQL', 'Docker', 'Go', 'Flutter'],
     },
   },
   {

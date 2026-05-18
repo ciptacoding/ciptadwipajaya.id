@@ -4,9 +4,10 @@ import { useEffect, useRef } from 'react'
 const ROLES = [
   'GovTech Engineer.',
   'Full-Stack Developer.',
-  'Automation Builder.',
-  'Backend Architect.',
-  'Sistem untuk Nusantara.',
+  'AI Integration.',
+  'Backend Developer.',
+  'Systems for Nusantara.',
+  'Frontend Developer'
 ]
 
 export default function Hero() {

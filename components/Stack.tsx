@@ -2,7 +2,7 @@ const TECH = [
   'Laravel', 'React.js', 'Vue.js', 'Nuxt.js', 'Next.js',
   'TypeScript', 'JavaScript', 'Node.js', 'Go', 'Tailwind CSS',
   'Redux', 'PostgreSQL', 'MySQL', 'Prisma ORM', 'Git',
-  'REST API', 'n8n Automation', 'Docker', 'Supabase', 'OpenCLAWA',
+  'REST API', 'n8n Automation', 'Docker', 'Supabase', 'OpenClaw',
 ]
 
 export default function Stack() {
@@ -13,8 +13,7 @@ export default function Stack() {
         Tools of the craft.
       </h2>
       <p className="section-sub reveal" data-delay="2">
-        Pilihan teknologi yang saya pakai sehari-hari untuk membangun, menghubungkan, dan
-        menjaga sistem.
+        The technologies I reach for every day to build, connect, and maintain systems.
       </p>
 
       <ul className="chips" id="chips" aria-label="Technology stack">
