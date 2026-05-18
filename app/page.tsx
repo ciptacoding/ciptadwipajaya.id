@@ -119,9 +119,9 @@ export default function Home() {
       <main>
         <Hero />
         <About />
-        <Stack />
         <Experience />
         <Projects />
+        <Stack />
         <Contact />
       </main>
       <Footer />

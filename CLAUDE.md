@@ -15,7 +15,7 @@ There is no test suite.
 
 A single-page personal portfolio for I Gusti Ngurah Cipta Dwipajaya, built with Next.js 15 (App Router), React 19, and TypeScript. Styling is plain CSS — no Tailwind, no CSS-in-JS.
 
-- **One route.** `app/page.tsx` is the entire site: it stacks the section components (`Navbar`, `Hero`, `About`, `Stack`, `Experience`, `Projects`, `Contact`, `Footer`) and mounts `ClientEffects`. There are no other pages.
+- **One route.** `app/page.tsx` is the entire site: it stacks the section components (`Navbar`, `Hero`, `About`, `Experience`, `Projects`, `Stack`, `Contact`, `Footer`) and mounts `ClientEffects`. There are no other pages.
 - **Server-first, JS-optional.** Section content is server-rendered. Interactivity is layered on as *progressive enhancement* — the page is fully readable with JavaScript disabled. `components/ClientEffects.tsx` is the central client effect: it wires up scroll-reveal (IntersectionObserver on `.reveal` elements, which get an `.in` class), the chip stagger animation (`#chips`), and stat count-up animation. When adding animated sections, render the static markup server-side and hook the animation into `ClientEffects` rather than making the section itself a client component.
 - **Client components** (those with `'use client'`): `ClientEffects`, `CustomCursor`, `ParticleCanvas`, `Loader`, plus `Hero`, `Projects`, `Experience`, `Navbar` where they need local interactivity. The rest are server components.
 - **Global chrome** mounted once in `app/layout.tsx`, outside the page: `Loader`, `CustomCursor`, `ParticleCanvas`. The site uses a custom cursor — `body { cursor: none }` in `globals.css`.

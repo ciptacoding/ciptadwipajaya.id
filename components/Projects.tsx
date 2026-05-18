@@ -67,7 +67,7 @@ export default function Projects() {
 
   return (
     <section id="projects" aria-labelledby="projects-title">
-      <div className="section-num reveal">04 — Selected Work</div>
+      <div className="section-num reveal">03 — Selected Work</div>
       <h2 id="projects-title" className="section-title reveal" data-delay="1">
         Things I&apos;ve built.
       </h2>

@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 
 const NAV_LINKS = [
   { href: '#about', label: 'About' },
-  { href: '#stack', label: 'Stack' },
   { href: '#experience', label: 'Work' },
   { href: '#projects', label: 'Projects' },
+  { href: '#stack', label: 'Stack' },
 ]
 
 const WA_URL =

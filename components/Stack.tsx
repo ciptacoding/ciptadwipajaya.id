@@ -8,7 +8,7 @@ const TECH = [
 export default function Stack() {
   return (
     <section id="stack" aria-labelledby="stack-title">
-      <div className="section-num reveal">02 — Stack</div>
+      <div className="section-num reveal">04 — Stack</div>
       <h2 id="stack-title" className="section-title reveal" data-delay="1">
         Tools of the craft.
       </h2>

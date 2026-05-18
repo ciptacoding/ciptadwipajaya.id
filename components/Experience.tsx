@@ -71,7 +71,7 @@ export default function Experience() {
 
   return (
     <section id="experience" aria-labelledby="experience-title">
-      <div className="section-num reveal">03 — Experience</div>
+      <div className="section-num reveal">02 — Experience</div>
       <h2 id="experience-title" className="section-title reveal" data-delay="1">
         A short, deliberate path.
       </h2>
