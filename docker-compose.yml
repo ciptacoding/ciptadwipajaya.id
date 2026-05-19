@@ -1,0 +1,7 @@
+services:
+  panic-button:
+    image: ghcr.io/ciptacoding/ciptadwipajaya.id:latest
+    container_name: ciptadwipajaya.id
+    restart: unless-stopped
+    ports:
+      - "3000:80"   # sesuaikan port (3000 = contoh)
