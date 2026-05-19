@@ -1,5 +1,5 @@
 services:
-  panic-button:
+  cipta-portfolio:
     image: ghcr.io/ciptacoding/ciptadwipajaya.id:latest
     container_name: ciptadwipajaya.id
     restart: unless-stopped
