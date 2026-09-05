@@ -1,12 +1,4 @@
-import Navbar from '@/components/Navbar'
-import Hero from '@/components/Hero'
-import About from '@/components/About'
-import Stack from '@/components/Stack'
-import Experience from '@/components/Experience'
-import Projects from '@/components/Projects'
-import Contact from '@/components/Contact'
-import Footer from '@/components/Footer'
-import ClientEffects from '@/components/ClientEffects'
+import Portfolio from '@/components/Portfolio'
 
 // JSON-LD Person schema — maximises entity recognition for "Cipta Dwipajaya" searches
 const personSchema = {
@@ -18,13 +10,13 @@ const personSchema = {
   url: 'https://ciptadwipajaya.id',
   image: {
     '@type': 'ImageObject',
-    url: 'https://ciptadwipajaya.id/photo.jpg',
+    url: 'https://ciptadwipajaya.id/cipta.png',
     width: 800,
     height: 1000,
   },
-  jobTitle: 'GovTech Engineer',
+  jobTitle: ['Software Engineer', 'Content Creator'],
   description:
-    "GovTech Engineer & Software Engineer at Otorita Ibu Kota Nusantara (OIKN), building the digital foundation of Indonesia's new capital city Nusantara.",
+    'Content Creator and Software Engineer with 5+ years of experience building full-stack products and automation. Currently a Software Engineer at Otorita Ibu Kota Nusantara (OIKN).',
   worksFor: {
     '@type': 'Organization',
     '@id': 'https://ikn.go.id/#org',
@@ -47,9 +39,14 @@ const personSchema = {
     'https://github.com/ciptacoding',
     'https://linkedin.com/in/cipta-dwipajaya-9019bb231',
     'https://twitter.com/ciptadev',
-    'https://instagram.com/ciptadwipajayaa',
+    'https://www.instagram.com/ciptadwipajayaa/',
+    'https://www.tiktok.com/@ciptadwipajayaa',
+    'https://www.youtube.com/@CiptaDev',
+    'https://www.threads.com/@ciptadwipajayaa',
+    'https://www.youtube.com/@BolaAjaOfficial',
   ],
   knowsAbout: [
+    'Content Creation',
     'Laravel',
     'React.js',
     'Vue.js',
@@ -83,7 +80,7 @@ const personSchema = {
       '@type': 'City',
       name: 'Nusantara',
     },
-    skills: 'Full-stack Development, Laravel, React, Go, TypeScript, PostgreSQL, REST API',
+    skills: 'Full-stack Development, Laravel, React, Go, TypeScript, PostgreSQL, REST API, Content Creation',
   },
 }
 
@@ -92,9 +89,9 @@ const websiteSchema = {
   '@type': 'WebSite',
   '@id': 'https://ciptadwipajaya.id/#website',
   url: 'https://ciptadwipajaya.id',
-  name: 'Cipta Dwipajaya — GovTech Engineer',
+  name: 'Cipta Dwipajaya · Content Creator & Software Engineer',
   description:
-    "Personal portfolio of I Gusti Ngurah Cipta Dwipajaya, GovTech Engineer building digital infrastructure for Indonesia's new capital.",
+    'Personal site of I Gusti Ngurah Cipta Dwipajaya, Content Creator and Software Engineer with 5+ years of experience.',
   author: { '@id': 'https://ciptadwipajaya.id/#person' },
   inLanguage: ['id', 'en'],
 }
@@ -112,19 +109,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
 
-      {/* Global client-side effects: scroll reveal, nav spy, chip stagger, stat counters */}
-      <ClientEffects />
-
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Projects />
-        <Stack />
-        <Contact />
-      </main>
-      <Footer />
+      <Portfolio />
     </>
   )
 }
