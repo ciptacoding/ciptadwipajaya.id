@@ -34,36 +34,48 @@ const BOB = ['6s', '7s .4s', '5.5s .8s', '6.5s .2s', '7.5s .6s', '6s 1s']
 const INITIAL_POINTS = [70, 65, 18, 9, 46, 56, 51, 60, 55, 62, 44, 37, 51, 44, 58, 62, 56, 63, 51, 47]
 
 // ── Audience analytics (dummy) ──
-// Every figure is fake. Bases live in build-time env (NEXT_PUBLIC_*, inlined
-// into the static export) so they can be bumped as the real numbers grow: edit
-// .env.local (or .env) and rebuild the image. Each figure random-walks within
-// ±jitter of its base, so it drifts up AND down and never balloons over a
-// session. Set a jitter to 0 to freeze that figure at its base.
-const envNum = (v: string | undefined, fallback: number) => {
-  const parsed = Number(v)
-  return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback
+// Every figure is fake. Each one random-walks within ±jitter of its BASE, so it
+// drifts up AND down and never balloons over a session (jitter 0 = frozen).
+//
+// The BASE numbers are configurable at two layers, runtime taking priority:
+//   1. Build time — NEXT_PUBLIC_* env, inlined into the static export
+//      (.env.production in the repo). This is the SSR / fallback value.
+//   2. Runtime — window.__ANALYTICS__, served by /analytics-config.js which the
+//      Docker image regenerates from the container's env on every start. So the
+//      numbers can be changed by editing .env on the VM + `docker compose up -d`,
+//      with no rebuild. Read after mount to avoid a hydration mismatch.
+const numOr = (v: unknown, fallback: number) => {
+  const n = typeof v === 'number' ? v : Number(v)
+  return Number.isFinite(n) && n >= 0 ? n : fallback
 }
 
-const METRICS = {
-  followers: {
-    base: envNum(process.env.NEXT_PUBLIC_FOLLOWERS_BASE, 5000),
-    jitter: envNum(process.env.NEXT_PUBLIC_FOLLOWERS_JITTER, 15),
-  },
-  views: {
-    base: envNum(process.env.NEXT_PUBLIC_VIEWS_BASE, 1000000),
-    jitter: envNum(process.env.NEXT_PUBLIC_VIEWS_JITTER, 600),
-  },
-  subs: {
-    base: envNum(process.env.NEXT_PUBLIC_SUBS_BASE, 20000),
-    jitter: envNum(process.env.NEXT_PUBLIC_SUBS_JITTER, 20),
-  },
-  ytViews: {
-    base: envNum(process.env.NEXT_PUBLIC_YT_VIEWS_BASE, 36000000),
-    jitter: envNum(process.env.NEXT_PUBLIC_YT_VIEWS_JITTER, 4000),
-  },
-} as const
+const DEFAULT_BASE = {
+  followers: numOr(process.env.NEXT_PUBLIC_FOLLOWERS_BASE, 5000),
+  views: numOr(process.env.NEXT_PUBLIC_VIEWS_BASE, 1000000),
+  subs: numOr(process.env.NEXT_PUBLIC_SUBS_BASE, 20000),
+  ytViews: numOr(process.env.NEXT_PUBLIC_YT_VIEWS_BASE, 36000000),
+}
 
-const VIEWS_TODAY_BASE = envNum(process.env.NEXT_PUBLIC_VIEWS_TODAY_BASE, 14382)
+// Jitter (drift amplitude) stays build-time only — it is cosmetic, not a figure
+// anyone bumps as the account grows.
+const JITTER = {
+  followers: numOr(process.env.NEXT_PUBLIC_FOLLOWERS_JITTER, 15),
+  views: numOr(process.env.NEXT_PUBLIC_VIEWS_JITTER, 600),
+  subs: numOr(process.env.NEXT_PUBLIC_SUBS_JITTER, 20),
+  ytViews: numOr(process.env.NEXT_PUBLIC_YT_VIEWS_JITTER, 4000),
+}
+
+const DEFAULT_VIEWS_TODAY = numOr(process.env.NEXT_PUBLIC_VIEWS_TODAY_BASE, 14382)
+
+type RuntimeCfg = Partial<
+  Record<'FOLLOWERS_BASE' | 'VIEWS_BASE' | 'SUBS_BASE' | 'YT_VIEWS_BASE' | 'VIEWS_TODAY_BASE', number>
+>
+
+const readRuntimeCfg = (): RuntimeCfg | undefined => {
+  if (typeof window === 'undefined') return undefined
+  const w = (window as unknown as { __ANALYTICS__?: RuntimeCfg }).__ANALYTICS__
+  return w && typeof w === 'object' ? w : undefined
+}
 
 // Bounded signed random walk: nudges `cur` by a fraction of `amp`, clamped to
 // [-amp, +amp]. Keeps the live offset small and mean-reverting around the base.
@@ -81,9 +93,12 @@ export default function Portfolio() {
   // count-up progress: start at 1 so SSR / no-JS renders final figures
   const [p, setP] = useState(1)
   const [typed, setTyped] = useState(TYPED_TEXT)
-  const [ticker, setTicker] = useState(VIEWS_TODAY_BASE)
+  const [ticker, setTicker] = useState(DEFAULT_VIEWS_TODAY)
   const [points, setPoints] = useState<number[]>(INITIAL_POINTS)
   const [live, setLive] = useState({ followers: 0, views: 0, subs: 0, ytViews: 0 })
+  // Base figures: build-time defaults for SSR/first paint, overridden by the
+  // container's runtime config after mount (keeps hydration in sync).
+  const [base, setBase] = useState(DEFAULT_BASE)
 
   const trackRef = useRef<HTMLDivElement | null>(null)
 
@@ -92,6 +107,19 @@ export default function Portfolio() {
     try {
       if (localStorage.getItem('cd_theme') === 'light') setDark(false)
     } catch {}
+  }, [])
+
+  // Apply runtime analytics config (from /analytics-config.js) once mounted.
+  useEffect(() => {
+    const cfg = readRuntimeCfg()
+    if (!cfg) return
+    setBase({
+      followers: numOr(cfg.FOLLOWERS_BASE, DEFAULT_BASE.followers),
+      views: numOr(cfg.VIEWS_BASE, DEFAULT_BASE.views),
+      subs: numOr(cfg.SUBS_BASE, DEFAULT_BASE.subs),
+      ytViews: numOr(cfg.YT_VIEWS_BASE, DEFAULT_BASE.ytViews),
+    })
+    setTicker((t) => (t === DEFAULT_VIEWS_TODAY ? numOr(cfg.VIEWS_TODAY_BASE, DEFAULT_VIEWS_TODAY) : t))
   }, [])
 
   // Responsive breakpoint
@@ -153,10 +181,10 @@ export default function Portfolio() {
       // Each figure oscillates within ±jitter of its base (up and down), so the
       // numbers stay near the env-configured base instead of climbing forever.
       setLive((l) => ({
-        followers: walk(l.followers, METRICS.followers.jitter),
-        views: walk(l.views, METRICS.views.jitter),
-        subs: walk(l.subs, METRICS.subs.jitter),
-        ytViews: walk(l.ytViews, METRICS.ytViews.jitter),
+        followers: walk(l.followers, JITTER.followers),
+        views: walk(l.views, JITTER.views),
+        subs: walk(l.subs, JITTER.subs),
+        ytViews: walk(l.ytViews, JITTER.ytViews),
       }))
     }, 1200)
     return () => clearInterval(iv)
@@ -311,10 +339,10 @@ export default function Portfolio() {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
               {[
-                { label: 'IG + TikTok · Followers', value: n(METRICS.followers.base, live.followers) + suffix },
-                { label: 'IG + TikTok · Views', value: n(METRICS.views.base, live.views) + suffix },
-                { label: 'Bola Aja YT · Subscribers', value: n(METRICS.subs.base, live.subs) },
-                { label: 'Bola Aja YT · Views', value: n(METRICS.ytViews.base, live.ytViews) + suffix },
+                { label: 'IG + TikTok · Followers', value: n(base.followers, live.followers) + suffix },
+                { label: 'IG + TikTok · Views', value: n(base.views, live.views) + suffix },
+                { label: 'Bola Aja YT · Subscribers', value: n(base.subs, live.subs) },
+                { label: 'Bola Aja YT · Views', value: n(base.ytViews, live.ytViews) + suffix },
               ].map((t) => (
                 <div key={t.label} style={{ background: 'var(--tileBg)', border: '1px solid var(--bord)', borderRadius: '14px', padding: '12px 14px', boxShadow: 'inset 0 1px 0 var(--hi)' }}>
                   <div style={{ fontSize: '12px', color: 'var(--tx2)', fontWeight: 500 }}>{t.label}</div>
