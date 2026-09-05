@@ -33,6 +33,47 @@ const BOB = ['6s', '7s .4s', '5.5s .8s', '6.5s .2s', '7.5s .6s', '6s 1s']
 
 const INITIAL_POINTS = [70, 65, 18, 9, 46, 56, 51, 60, 55, 62, 44, 37, 51, 44, 58, 62, 56, 63, 51, 47]
 
+// ── Audience analytics (dummy) ──
+// Every figure is fake. Bases live in build-time env (NEXT_PUBLIC_*, inlined
+// into the static export) so they can be bumped as the real numbers grow: edit
+// .env.local (or .env) and rebuild the image. Each figure random-walks within
+// ±jitter of its base, so it drifts up AND down and never balloons over a
+// session. Set a jitter to 0 to freeze that figure at its base.
+const envNum = (v: string | undefined, fallback: number) => {
+  const parsed = Number(v)
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback
+}
+
+const METRICS = {
+  followers: {
+    base: envNum(process.env.NEXT_PUBLIC_FOLLOWERS_BASE, 5000),
+    jitter: envNum(process.env.NEXT_PUBLIC_FOLLOWERS_JITTER, 15),
+  },
+  views: {
+    base: envNum(process.env.NEXT_PUBLIC_VIEWS_BASE, 1000000),
+    jitter: envNum(process.env.NEXT_PUBLIC_VIEWS_JITTER, 600),
+  },
+  subs: {
+    base: envNum(process.env.NEXT_PUBLIC_SUBS_BASE, 20000),
+    jitter: envNum(process.env.NEXT_PUBLIC_SUBS_JITTER, 20),
+  },
+  ytViews: {
+    base: envNum(process.env.NEXT_PUBLIC_YT_VIEWS_BASE, 36000000),
+    jitter: envNum(process.env.NEXT_PUBLIC_YT_VIEWS_JITTER, 4000),
+  },
+} as const
+
+const VIEWS_TODAY_BASE = envNum(process.env.NEXT_PUBLIC_VIEWS_TODAY_BASE, 14382)
+
+// Bounded signed random walk: nudges `cur` by a fraction of `amp`, clamped to
+// [-amp, +amp]. Keeps the live offset small and mean-reverting around the base.
+const walk = (cur: number, amp: number) => {
+  if (amp <= 0) return 0
+  const step = amp * 0.4
+  const next = cur + (Math.random() * 2 - 1) * step
+  return next > amp ? amp : next < -amp ? -amp : next
+}
+
 export default function Portfolio() {
   const [dark, setDark] = useState(true)
   const [narrow, setNarrow] = useState(false)
@@ -40,7 +81,7 @@ export default function Portfolio() {
   // count-up progress: start at 1 so SSR / no-JS renders final figures
   const [p, setP] = useState(1)
   const [typed, setTyped] = useState(TYPED_TEXT)
-  const [ticker, setTicker] = useState(14382)
+  const [ticker, setTicker] = useState(VIEWS_TODAY_BASE)
   const [points, setPoints] = useState<number[]>(INITIAL_POINTS)
   const [live, setLive] = useState({ followers: 0, views: 0, subs: 0, ytViews: 0 })
 
@@ -100,7 +141,8 @@ export default function Portfolio() {
   // Live ticker + sparkline drift
   useEffect(() => {
     const iv = setInterval(() => {
-      setTicker((v) => v + Math.floor(Math.random() * 9) + 1)
+      // "views today" is a within-day tally, so it drifts up only, but slowly.
+      setTicker((v) => v + Math.floor(Math.random() * 4))
       setPoints((pts) => {
         const rest = pts.slice(1)
         const last = rest[rest.length - 1]
@@ -108,11 +150,13 @@ export default function Portfolio() {
         next = Math.max(8, Math.min(72, next))
         return [...rest, Math.round(next)]
       })
+      // Each figure oscillates within ±jitter of its base (up and down), so the
+      // numbers stay near the env-configured base instead of climbing forever.
       setLive((l) => ({
-        followers: l.followers + (Math.random() < 0.3 ? 1 : 0),
-        views: l.views + Math.floor(Math.random() * 40) + 5,
-        subs: l.subs + (Math.random() < 0.2 ? 1 : 0),
-        ytViews: l.ytViews + Math.floor(Math.random() * 220) + 30,
+        followers: walk(l.followers, METRICS.followers.jitter),
+        views: walk(l.views, METRICS.views.jitter),
+        subs: walk(l.subs, METRICS.subs.jitter),
+        ytViews: walk(l.ytViews, METRICS.ytViews.jitter),
       }))
     }, 1200)
     return () => clearInterval(iv)
@@ -267,10 +311,10 @@ export default function Portfolio() {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
               {[
-                { label: 'IG + TikTok · Followers', value: n(5000, live.followers) + suffix },
-                { label: 'IG + TikTok · Views', value: n(1000000, live.views) + suffix },
-                { label: 'Bola Aja YT · Subscribers', value: n(20000, live.subs) },
-                { label: 'Bola Aja YT · Views', value: n(36000000, live.ytViews) + suffix },
+                { label: 'IG + TikTok · Followers', value: n(METRICS.followers.base, live.followers) + suffix },
+                { label: 'IG + TikTok · Views', value: n(METRICS.views.base, live.views) + suffix },
+                { label: 'Bola Aja YT · Subscribers', value: n(METRICS.subs.base, live.subs) },
+                { label: 'Bola Aja YT · Views', value: n(METRICS.ytViews.base, live.ytViews) + suffix },
               ].map((t) => (
                 <div key={t.label} style={{ background: 'var(--tileBg)', border: '1px solid var(--bord)', borderRadius: '14px', padding: '12px 14px', boxShadow: 'inset 0 1px 0 var(--hi)' }}>
                   <div style={{ fontSize: '12px', color: 'var(--tx2)', fontWeight: 500 }}>{t.label}</div>
