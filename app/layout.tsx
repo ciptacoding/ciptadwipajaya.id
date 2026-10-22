@@ -6,18 +6,15 @@ const BASE_URL = 'https://ciptadwipajaya.id'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default:
-      'Cipta Dwipajaya · Content Creator & Software Engineer | I Gusti Ngurah Cipta Dwipajaya',
+    default: 'Cipta Dwipajaya · Content Creator & Software Engineer',
     template: '%s | Cipta Dwipajaya',
   },
   description:
-    'I Gusti Ngurah Cipta Dwipajaya, Content Creator and Software Engineer with 5+ years of experience building full-stack products and automation. Currently Software Engineer at Otorita Ibu Kota Nusantara (OIKN). Stack: Laravel, React, Next.js, Go, TypeScript.',
+    'Cipta Dwipajaya, Content Creator and Software Engineer with 5+ years of experience building full-stack products and automation. Currently Software Engineer at Otorita Ibu Kota Nusantara (OIKN). Stack: Laravel, React, Next.js, Go, TypeScript.',
   keywords: [
     'Cipta Dwipajaya',
-    'I Gusti Ngurah Cipta Dwipajaya',
     'ciptadwipajaya.id',
     'cipta dwipajaya',
-    'I Gusti Ngurah Cipta',
     'Content Creator',
     'Content Creator Indonesia',
     'Software Engineer',
@@ -43,10 +40,10 @@ export const metadata: Metadata = {
     'Kreation.id',
   ],
   authors: [
-    { name: 'I Gusti Ngurah Cipta Dwipajaya', url: BASE_URL },
+    { name: 'Cipta Dwipajaya', url: BASE_URL },
   ],
-  creator: 'I Gusti Ngurah Cipta Dwipajaya',
-  publisher: 'I Gusti Ngurah Cipta Dwipajaya',
+  creator: 'Cipta Dwipajaya',
+  publisher: 'Cipta Dwipajaya',
   category: 'technology',
   alternates: {
     canonical: BASE_URL,

@@ -13,7 +13,7 @@ There is no test suite.
 
 ## Architecture
 
-A single-page personal portfolio for I Gusti Ngurah Cipta Dwipajaya, built with Next.js 15 (App Router), React 19, and TypeScript. Styling is plain CSS — no Tailwind, no CSS-in-JS.
+A single-page personal portfolio for Cipta Dwipajaya, built with Next.js 15 (App Router), React 19, and TypeScript. Styling is plain CSS — no Tailwind, no CSS-in-JS.
 
 - **One route.** `app/page.tsx` is the entire site: it stacks the section components (`Navbar`, `Hero`, `About`, `Experience`, `Projects`, `Stack`, `Contact`, `Footer`) and mounts `ClientEffects`. There are no other pages.
 - **Server-first, JS-optional.** Section content is server-rendered. Interactivity is layered on as *progressive enhancement* — the page is fully readable with JavaScript disabled. `components/ClientEffects.tsx` is the central client effect: it wires up scroll-reveal (IntersectionObserver on `.reveal` elements, which get an `.in` class), the chip stagger animation (`#chips`), and stat count-up animation. When adding animated sections, render the static markup server-side and hook the animation into `ClientEffects` rather than making the section itself a client component.
@@ -26,7 +26,7 @@ All styles live in `app/globals.css`. The design system is a set of CSS custom p
 
 ## SEO
 
-SEO is a primary concern of this project — much of the content is identity/entity optimization for the name "Cipta Dwipajaya". Keep these in sync when editing identity, job, or social details:
+SEO is a primary concern of this project — much of the content is identity/entity optimization for the name "Cipta Dwipajaya". Use only "Cipta Dwipajaya" as the name; never add "I Gusti Ngurah". Keep these in sync when editing identity, job, or social details:
 
 - `app/layout.tsx` — `metadata` (title, description, keywords, OpenGraph, Twitter) and `rel=me` links
 - `app/page.tsx` — JSON-LD `Person` schema (`personSchema`)

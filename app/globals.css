@@ -29,7 +29,6 @@ body {
   --tx3: rgba(29, 29, 31, 0.66);
   --txBody: rgba(29, 29, 31, 0.8);
   --track: rgba(29, 29, 31, 0.1);
-  --grid: rgba(60, 60, 67, 0.14);
   --glow1: radial-gradient(circle, rgba(255, 255, 255, 0.75), transparent 65%);
   --glow2: radial-gradient(circle, rgba(180, 200, 255, 0.4), transparent 65%);
   --cardBg: linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.1));
@@ -81,7 +80,6 @@ body {
   --tx3: rgba(245, 245, 247, 0.42);
   --txBody: rgba(245, 245, 247, 0.68);
   --track: rgba(255, 255, 255, 0.12);
-  --grid: rgba(255, 255, 255, 0.06);
   --glow1: radial-gradient(circle, rgba(110, 140, 255, 0.14), transparent 65%);
   --glow2: radial-gradient(circle, rgba(150, 120, 255, 0.12), transparent 65%);
   --cardBg: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
@@ -195,16 +193,8 @@ body {
 .theme-toggle:hover { transform: scale(1.08); }
 
 /* --------------------------------------------------------------------------
-   Background — grid + drifting glows
+   Background — drifting glows
    -------------------------------------------------------------------------- */
-.bg-grid {
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 220px 220px;
-  pointer-events: none;
-}
 .bg-glow { position: absolute; border-radius: 50%; pointer-events: none; }
 .bg-glow-1 {
   top: -180px; left: -120px; width: 560px; height: 560px;

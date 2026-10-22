@@ -1,6 +1,6 @@
 # ciptadwipajaya.id
 
-Personal portfolio of **I Gusti Ngurah Cipta Dwipajaya** — Software Engineer at Otorita Ibu Kota Nusantara (OIKN).
+Personal portfolio of **Cipta Dwipajaya** — Software Engineer at Otorita Ibu Kota Nusantara (OIKN).
 
 A single-page site focused on identity/entity SEO for the name *Cipta Dwipajaya*, built to be fully readable without JavaScript and progressively enhanced.
 
@@ -50,4 +50,4 @@ Identity details are kept in sync across `app/layout.tsx` (metadata), `app/page.
 
 ## License
 
-© I Gusti Ngurah Cipta Dwipajaya. All rights reserved.
+© Cipta Dwipajaya. All rights reserved.

@@ -5,8 +5,8 @@ const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   '@id': 'https://ciptadwipajaya.id/#person',
-  name: 'I Gusti Ngurah Cipta Dwipajaya',
-  alternateName: ['Cipta Dwipajaya', 'Cipta', 'ciptadwipajaya', 'ciptacoding'],
+  name: 'Cipta Dwipajaya',
+  alternateName: ['Cipta', 'ciptadwipajaya', 'ciptacoding'],
   url: 'https://ciptadwipajaya.id',
   image: {
     '@type': 'ImageObject',
@@ -92,7 +92,7 @@ const websiteSchema = {
   url: 'https://ciptadwipajaya.id',
   name: 'Cipta Dwipajaya · Content Creator & Software Engineer',
   description:
-    'Personal site of I Gusti Ngurah Cipta Dwipajaya, Content Creator and Software Engineer with 5+ years of experience.',
+    'Personal site of Cipta Dwipajaya, Content Creator and Software Engineer with 5+ years of experience.',
   author: { '@id': 'https://ciptadwipajaya.id/#person' },
   inLanguage: ['id', 'en'],
 }

@@ -63,8 +63,7 @@ export default function LinkHub() {
     <div className="hero" id="main-content">
       <ThemeToggle />
 
-      {/* grid + drifting glows */}
-      <div aria-hidden className="bg-grid" />
+      {/* drifting glows */}
       <div aria-hidden className="bg-glow bg-glow-1" />
       <div aria-hidden className="bg-glow bg-glow-2" />
 
