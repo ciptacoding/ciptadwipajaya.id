@@ -106,9 +106,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* rel=me links for author/identity verification */}
         <link rel="me" href="https://github.com/ciptacoding" />
         <link rel="me" href="https://linkedin.com/in/cipta-dwipajaya-9019bb231" />
-        <link rel="me" href="https://twitter.com/ciptadev" />
+        <link rel="me" href="https://x.com/ciptadev" />
         <link rel="me" href="https://www.tiktok.com/@ciptadwipajayaa" />
-        <link rel="me" href="https://www.youtube.com/@CiptaDev" />
+        <link rel="me" href="https://www.youtube.com/@Ciptadwipajaya" />
       </head>
       <body>
         <a href="#main-content" className="skip-link">

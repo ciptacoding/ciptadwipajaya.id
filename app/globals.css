@@ -262,7 +262,7 @@ body {
   filter: var(--h1F);
 }
 .hub-role { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tx2); }
-.hub-bio { margin-top: 6px; font-size: 16px; line-height: 1.55; color: var(--txBody); max-width: 38ch; text-wrap: pretty; }
+.hub-bio { margin-top: 6px; font-size: 16px; line-height: 1.55; color: var(--txBody); max-width: 38ch; text-wrap: balance; }
 
 .hub-links { display: flex; flex-direction: column; gap: 16px; }
 
