@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Cipta Dwipajaya — liquid-glass portfolio
-   Single-viewport hero. Light theme by default, `.dark` on `.hero` flips the
+   Cipta Dwipajaya — liquid-glass link hub
+   Single centered column of link cards. Light tokens by default, `.dark` on `.hero` flips the
    design tokens. All theme colors are CSS custom properties — reuse them, do
    not hardcode.
    ========================================================================== */
@@ -62,7 +62,7 @@ body {
   justify-content: center;
   padding: clamp(20px, 3vw, 48px);
   position: relative;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .hero.dark {
@@ -163,6 +163,7 @@ body {
 .theme-toggle {
   position: fixed;
   top: 18px;
+  right: 18px;
   z-index: 100;
   width: 44px;
   height: 44px;
@@ -181,6 +182,164 @@ body {
   transition: transform 0.15s ease;
 }
 .theme-toggle:hover { transform: scale(1.08); }
+
+/* --------------------------------------------------------------------------
+   Background — grid + drifting glows
+   -------------------------------------------------------------------------- */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 220px 220px;
+  pointer-events: none;
+}
+.bg-glow { position: absolute; border-radius: 50%; pointer-events: none; }
+.bg-glow-1 {
+  top: -180px; left: -120px; width: 560px; height: 560px;
+  background: var(--glow1); filter: blur(60px);
+  animation: glowDrift 14s ease-in-out infinite;
+}
+.bg-glow-2 {
+  bottom: -200px; right: -140px; width: 620px; height: 620px;
+  background: var(--glow2); filter: blur(70px);
+  animation: glowDrift2 17s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Link hub
+   -------------------------------------------------------------------------- */
+.hub {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 40px 0 8px;
+  animation: fadeUp 0.7s ease both;
+}
+
+.hub-head { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+
+.avatar {
+  width: 104px;
+  height: 104px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--cardBg2);
+  border: 1px solid var(--bordStrong);
+  box-shadow: inset 0 1px 0 var(--hi), 0 16px 40px rgba(50, 55, 70, 0.3);
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 30%;
+  transform: scale(1.65);
+  transform-origin: 59% 34%;
+  display: block;
+}
+
+.hub-name {
+  font-size: clamp(30px, 6vw, 38px);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: var(--h1Grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: var(--h1F);
+}
+.hub-role { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tx2); }
+.hub-bio { margin-top: 6px; font-size: 16px; line-height: 1.55; color: var(--txBody); max-width: 38ch; text-wrap: pretty; }
+
+.hub-links { display: flex; flex-direction: column; gap: 12px; }
+
+.link-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px 14px 14px;
+  background: var(--cardBg);
+  backdrop-filter: blur(36px) saturate(170%);
+  -webkit-backdrop-filter: blur(36px) saturate(170%);
+  border: 1px solid var(--bord);
+  border-radius: 18px;
+  color: var(--tx);
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 var(--hi), 0 10px 30px rgba(50, 55, 70, 0.16);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+a.link-card:hover, .link-group:not([open]):hover {
+  background: var(--hoverBg);
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 0 var(--hi), 0 18px 40px rgba(50, 55, 70, 0.26);
+}
+a.link-card:active { transform: translateY(0) scale(0.99); }
+
+.link-card.featured {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: inset 0 1px 0 var(--hi), 0 0 0 4px color-mix(in srgb, var(--accent) 12%, transparent),
+    0 14px 40px rgba(50, 55, 70, 0.22);
+}
+.link-card.featured .link-title { font-size: 17px; }
+.link-card.soon { opacity: 0.72; cursor: default; }
+
+.link-ico {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tileBg);
+  border: 1px solid var(--bord);
+  box-shadow: inset 0 1px 0 var(--hi);
+}
+.link-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.link-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+.link-sub { font-size: 13.5px; line-height: 1.45; color: var(--tx2); }
+.link-card .chev { flex-shrink: 0; font-size: 22px; line-height: 1; color: var(--tx3); transition: transform 0.2s ease; }
+
+.badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+.badge-soon { color: var(--tx2); background: var(--track); }
+
+/* Social media dropdown — native <details>, works without JS */
+.link-group { display: block; padding: 0; }
+.link-group summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px 14px 14px;
+  border-radius: 17px;
+  cursor: pointer;
+  list-style: none;
+}
+.link-group summary::-webkit-details-marker { display: none; }
+.link-group .chev-down { transform: rotate(90deg); }
+.link-group[open] .chev-down { transform: rotate(-90deg); }
+.social-list {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 8px 8px;
+  border-top: 1px solid var(--bord);
+  animation: fadeUp 0.18s ease both;
+}
+
+.hub-foot { text-align: center; font-size: 12px; color: var(--tx3); }
 
 /* --------------------------------------------------------------------------
    Accessibility — skip link

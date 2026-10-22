@@ -1,4 +1,4 @@
-import Portfolio from '@/components/Portfolio'
+import LinkHub from '@/components/LinkHub'
 
 // JSON-LD Person schema — maximises entity recognition for "Cipta Dwipajaya" searches
 const personSchema = {
@@ -109,7 +109,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
 
-      <Portfolio />
+      <LinkHub />
     </>
   )
 }

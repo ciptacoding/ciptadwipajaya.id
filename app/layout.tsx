@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     'developer Bali',
     'ciptacoding',
     'cipta dev',
+    'komunitas AI Indonesia',
+    'komunitas open source',
+    'tools AI',
+    'belajar AI',
+    'Kreation.id',
   ],
   authors: [
     { name: 'I Gusti Ngurah Cipta Dwipajaya', url: BASE_URL },
@@ -104,10 +109,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="me" href="https://twitter.com/ciptadev" />
         <link rel="me" href="https://www.tiktok.com/@ciptadwipajayaa" />
         <link rel="me" href="https://www.youtube.com/@CiptaDev" />
-        {/* Runtime analytics config: regenerated from env by the container on
-            start. Loaded synchronously so window.__ANALYTICS__ is set before the
-            app hydrates. A safe default ships in public/ for local/dev. */}
-        <script src="/analytics-config.js" />
       </head>
       <body>
         <a href="#main-content" className="skip-link">
