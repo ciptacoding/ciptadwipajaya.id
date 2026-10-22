@@ -73,7 +73,7 @@ export default function LinkHub() {
       <main className="hub">
         <header className="hub-head">
           <div className="avatar">
-            <img src="/cipta.png" alt="Cipta Dwipajaya" width={363} height={454} />
+            <img src="/cipta-avatar.jpg" alt="Cipta Dwipajaya" width={400} height={400} />
           </div>
           <h1 className="hub-name">Cipta Dwipajaya</h1>
           <p className="hub-role">Software Engineer &amp; Content Creator</p>

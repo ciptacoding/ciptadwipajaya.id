@@ -10,7 +10,7 @@ const personSchema = {
   url: 'https://ciptadwipajaya.id',
   image: {
     '@type': 'ImageObject',
-    url: 'https://ciptadwipajaya.id/cipta.png',
+    url: 'https://ciptadwipajaya.id/cipta.jpg',
     width: 800,
     height: 1000,
   },
