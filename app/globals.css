@@ -24,9 +24,10 @@ body {
 .hero {
   --pageBg: linear-gradient(135deg, #eceded 0%, #d8dadf 45%, #b9bcc4 100%);
   --tx: #1d1d1f;
-  --tx2: rgba(29, 29, 31, 0.5);
-  --tx3: rgba(29, 29, 31, 0.45);
-  --txBody: rgba(29, 29, 31, 0.62);
+  /* alphas tuned for >= 4.5:1 contrast on the light gradient */
+  --tx2: rgba(29, 29, 31, 0.7);
+  --tx3: rgba(29, 29, 31, 0.66);
+  --txBody: rgba(29, 29, 31, 0.8);
   --track: rgba(29, 29, 31, 0.1);
   --grid: rgba(60, 60, 67, 0.14);
   --glow1: radial-gradient(circle, rgba(255, 255, 255, 0.75), transparent 65%);
