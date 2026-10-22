@@ -28,7 +28,7 @@ type LinkItem = {
   sub: string
   href: string | null
   icon: ReactNode
-  tone?: 'blue' | 'pink' | 'lime' | 'violet' | 'green'
+  tone?: 'blue' | 'pink' | 'violet' | 'green'
   featured?: boolean
 }
 
@@ -52,8 +52,7 @@ const LINKS: LinkItem[] = [
     title: 'Kreation.id',
     sub: 'Tempat belajar AI, dari dasar sampai mahir.',
     href: KREATION_URL,
-    icon: <SparkIcon />,
-    tone: 'lime',
+    icon: <img src="/kreation-logo.png" alt="" width={128} height={128} />,
   },
 ]
 
@@ -139,10 +138,6 @@ function TelegramIcon() {
 
 function BagIcon() {
   return <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>
-}
-
-function SparkIcon() {
-  return <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" /><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" /></svg>
 }
 
 function ShareIcon() {
