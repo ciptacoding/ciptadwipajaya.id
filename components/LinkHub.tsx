@@ -6,7 +6,7 @@ import ThemeToggle from '@/components/ThemeToggle'
 
 // A link with `href: null` renders as a non-clickable "coming soon" card.
 // Fill these in once the destinations are live.
-const TELEGRAM_URL: string | null = null
+const TELEGRAM_URL: string | null = 'https://t.me/kreationid'
 const KREATION_URL: string | null = null // https://kreation.id, still in development
 const PRODUCTS_URL = 'https://lynk.id/ciptacoding'
 
@@ -19,7 +19,6 @@ const SOCIALS = [
   { label: 'Instagram', handle: '@ciptadwipajayaa', href: 'https://www.instagram.com/ciptadwipajayaa/' },
   { label: 'YouTube', handle: '@CiptaDev', href: 'https://www.youtube.com/@CiptaDev' },
   { label: 'Threads', handle: '@ciptadwipajayaa', href: 'https://www.threads.com/@ciptadwipajayaa' },
-  { label: 'YouTube', handle: '@BolaAjaOfficial', href: 'https://www.youtube.com/@BolaAjaOfficial' },
   { label: 'GitHub', handle: 'ciptacoding', href: 'https://github.com/ciptacoding' },
   { label: 'LinkedIn', handle: 'Cipta Dwipajaya', href: 'https://linkedin.com/in/cipta-dwipajaya-9019bb231' },
 ] as const
@@ -31,18 +30,16 @@ type LinkItem = {
   icon: ReactNode
   tone?: 'blue' | 'pink' | 'lime' | 'violet' | 'green'
   featured?: boolean
-  badge?: string
 }
 
 const LINKS: LinkItem[] = [
   {
     title: 'Komunitas Open Source & Tools AI',
-    sub: 'Gabung di Telegram: berbagi tools AI, project open source, dan diskusi bareng.',
+    sub: 'Tools AI & open source baru tiap hari di Telegram.',
     href: TELEGRAM_URL,
     icon: <TelegramIcon />,
     tone: 'blue',
     featured: true,
-    badge: 'Gratis',
   },
   {
     title: 'Produk Digital',
@@ -53,7 +50,7 @@ const LINKS: LinkItem[] = [
   },
   {
     title: 'Kreation.id',
-    sub: 'Tempat belajar AI, dari dasar sampai bisa dipakai kerja.',
+    sub: 'Tempat belajar AI, dari dasar sampai mahir.',
     href: KREATION_URL,
     icon: <SparkIcon />,
     tone: 'lime',
@@ -62,7 +59,7 @@ const LINKS: LinkItem[] = [
 
 export default function LinkHub() {
   return (
-    <div className="hero dark" id="main-content">
+    <div className="hero" id="main-content">
       <ThemeToggle />
 
       {/* grid + drifting glows */}
@@ -104,7 +101,7 @@ export default function LinkHub() {
 
           <LinkCard
             title="Business Inquiries"
-            sub="Kolaborasi, endorsement, atau project. Chat via WhatsApp."
+            sub="Kolaborasi, endorsement, atau project via WhatsApp."
             href={WA_URL}
             icon={<WhatsAppIcon />}
             tone="green"
@@ -117,7 +114,7 @@ export default function LinkHub() {
   )
 }
 
-function LinkCard({ title, sub, href, icon, tone, featured, badge }: LinkItem) {
+function LinkCard({ title, sub, href, icon, tone, featured }: LinkItem) {
   const cls = `link-card${featured ? ' featured' : ''}${href ? '' : ' soon'}`
   const inner = (
     <>
@@ -125,7 +122,7 @@ function LinkCard({ title, sub, href, icon, tone, featured, badge }: LinkItem) {
       <span className="link-body">
         <span className="link-title">
           {title}
-          {href ? badge && <span className="badge">{badge}</span> : <span className="badge badge-soon">Segera hadir</span>}
+          {!href && <span className="badge badge-soon">Segera hadir</span>}
         </span>
         <span className="link-sub">{sub}</span>
       </span>
@@ -167,6 +164,6 @@ function SocialIcon({ label }: { label: string }) {
     return <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--tx)" aria-hidden><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z" /></svg>
   if (label === 'LinkedIn')
     return <svg width="15" height="15" viewBox="0 0 24 24" fill="#0a66c2" aria-hidden><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" /></svg>
-  // YouTube (CiptaDev + BolaAja)
+  // YouTube
   return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff0000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.92 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z" /><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" /></svg>
 }

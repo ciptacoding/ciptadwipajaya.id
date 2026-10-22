@@ -3,13 +3,13 @@
 import { useEffect, useState } from 'react'
 
 // Flips the `.dark` class on the `.hero` wrapper. The page is server-rendered
-// dark by default; a saved light preference is applied after mount.
+// light by default; a saved dark preference is applied after mount.
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(true)
+  const [dark, setDark] = useState(false)
 
   useEffect(() => {
     try {
-      if (localStorage.getItem('cd_theme') === 'light') setDark(false)
+      if (localStorage.getItem('cd_theme') === 'dark') setDark(true)
     } catch {}
   }, [])
 

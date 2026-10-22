@@ -282,6 +282,14 @@ body {
   box-shadow: 5px 5px 0 var(--ink);
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
+/* Every card (and the closed dropdown) gets the same height. Sized for the
+   tallest content: title on one line + a two-line subtitle, or on phones a
+   two-line title + two-line subtitle. */
+a.link-card, div.link-card { min-height: var(--cardH); }
+/* the summary sits inside the details' 3px border */
+.link-group summary { min-height: calc(var(--cardH) - 6px); }
+.hub-links { --cardH: 98px; }
+@media (max-width: 459px) { .hub-links { --cardH: 118px; } }
 a.link-card:hover, .link-group:not([open]):hover {
   transform: translate(-2px, -2px);
   box-shadow: 7px 7px 0 var(--ink);
@@ -297,7 +305,6 @@ a.link-card:active, .link-group summary:active {
   --tx3: #111;
   background: var(--c-yellow);
 }
-.link-card.featured .link-title { font-size: 17px; }
 .link-card.soon { cursor: default; }
 .link-card.soon:not(.featured) { --tx2: var(--tx3); }
 
@@ -321,12 +328,21 @@ a.link-card:active, .link-group summary:active {
 .tone-green { --tile: var(--c-green); }
 
 .link-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
-.link-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
-.link-sub { font-size: 13.5px; line-height: 1.45; color: var(--tx2); }
+.link-title { display: flex; align-items: center; flex-wrap: wrap; gap: 2px 8px; font-size: 16px; line-height: 1.25; font-weight: 800; letter-spacing: -0.01em; }
+.link-sub {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--tx2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .link-card .chev { flex-shrink: 0; font-size: 26px; font-weight: 700; line-height: 1; color: var(--tx); transition: transform 0.2s ease; }
 
 .badge {
-  padding: 3px 7px;
+  padding: 2px 7px;
+  line-height: 1.3;
   border-radius: 3px;
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
   font-size: 10.5px;
