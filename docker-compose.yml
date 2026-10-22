@@ -3,10 +3,7 @@ services:
     image: ghcr.io/ciptacoding/ciptadwipajaya.id:latest
     container_name: ciptadwipajaya.id
     restart: unless-stopped
-    # Analytics numbers are read from these at container start (see
-    # docker/40-analytics-config.sh). Edit .env then `docker compose up -d`
-    # to change them — no image rebuild needed.
-    env_file:
-      - .env
+    # Hanya listen di localhost: trafik publik masuk lewat cloudflared tunnel,
+    # jadi situs tidak bisa diakses langsung lewat IP VM.
     ports:
-      - "3000:80"   # sesuaikan port (3000 = contoh)
+      - "127.0.0.1:3000:80"   # sesuaikan port host kalau 3000 sudah dipakai
